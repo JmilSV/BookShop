@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CustomerAdress">
+    <Key>
+      <PropertyRef Name="CustomerAdressId" />
+    </Key>
+    <Property Name="CustomerAdressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CityOrVillage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="House" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Appartment" Type="Int32" />
+    <Property Name="CustimerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblCustomer" Relationship="Self.FK__tblCustom__Custi__25869641" FromRole="tblCustomerAdresses" ToRole="tblCustomers" />
+  </EntityType>
+  <EntityType Name="CustomerOrder">
+    <Key>
+      <PropertyRef Name="CustomerOrderId" />
+    </Key>
+    <Property Name="CustomerOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustimerId" />
+    </Key>
+    <Property Name="CustimerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblCustomerAdresses" Relationship="Self.FK__tblCustom__Custi__25869641" FromRole="tblCustomers" ToRole="tblCustomerAdresses" />
+  </EntityType>
+  <Association Name="FK__tblCustom__Custi__25869641">
+    <End Role="tblCustomers" Type="Models.Customer" Multiplicity="1" />
+    <End Role="tblCustomerAdresses" Type="Models.CustomerAdress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCustomers">
+        <PropertyRef Name="CustimerId" />
+      </Principal>
+      <Dependent Role="tblCustomerAdresses">
+        <PropertyRef Name="CustimerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CustomerDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CustomerAdresses" EntityType="Models.CustomerAdress" />
+    <EntitySet Name="CustomerOrders" EntityType="Models.CustomerOrder" />
+    <EntitySet Name="Customers" EntityType="Models.Customer" />
+    <AssociationSet Name="FK__tblCustom__Custi__25869641" Association="Self.FK__tblCustom__Custi__25869641">
+      <End Role="tblCustomers" EntitySet="Customers" />
+      <End Role="tblCustomerAdresses" EntitySet="CustomerAdresses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

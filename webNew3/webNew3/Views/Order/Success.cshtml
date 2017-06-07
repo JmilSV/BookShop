@@ -1,0 +1,44 @@
+﻿@model MyCart
+
+@{
+    ViewBag.Title = "Замовлення оформлене!";
+    MyCart.GetCart().RemoveCart();
+    Categories.category = null;
+}
+
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <div class="gap50px"></div>
+        <h2>Ваше замовлення успішно оформлене!</h2>
+        <div class="gap15px"></div>
+        @{
+            List<string> lastNames = new List<string>();
+            <span class="fontSize150 text-info">
+                @for (int i = 0; i < Model.bookCartCount; i++)
+                {
+                    if (!lastNames.Exists(x => x == Model.BookCarts[i].book.Author.LastName))
+                    {
+                        if (lastNames.Count == 0)
+                        {
+                            lastNames.Add(Model.BookCarts[i].book.Author.LastName);
+                            <span>@lastNames.Last()</span>
+                        }
+                        else
+                        {
+                            <span>, </span>
+                            lastNames.Add(Model.BookCarts[i].book.Author.LastName);
+                            <span>@lastNames.Last()</span>
+                        }
+                    }
+                }
+                <span>- чудовий вибір!</span><br />
+            </span>
+        }
+
+        <h3 class="text-info">
+            Чекаємо на Вас знову, приємного читання!
+        </h3>
+            <a href="~/home/index" class="btn btn-block btn-lg">Повернутись на головну</a>
+</div>
+</div>
+

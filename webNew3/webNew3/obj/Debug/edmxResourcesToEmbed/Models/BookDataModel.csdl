@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorId" />
+    </Key>
+    <Property Name="AuthorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__tblBooks__Author__1273C1CD" FromRole="tblAuthors" ToRole="tblBooks" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BookId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="BookTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Author" Relationship="Self.FK__tblBooks__Author__1273C1CD" FromRole="tblBooks" ToRole="tblAuthors" />
+    <NavigationProperty Name="CustomerOrders" Relationship="Self.FK__tblCustom__BookI__32E0915F" FromRole="tblBooks" ToRole="tblCustomerOrders" />
+  </EntityType>
+  <EntityType Name="CustomerAdress">
+    <Key>
+      <PropertyRef Name="CustomerAdressId" />
+    </Key>
+    <Property Name="CustomerAdressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CityOrVillage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="House" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Appartment" Type="Int32" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__tblCustom__Custo__300424B4" FromRole="tblCustomerAdresses" ToRole="tblCustomers" />
+  </EntityType>
+  <EntityType Name="CustomerContactData">
+    <Key>
+      <PropertyRef Name="CustomerContactDataId" />
+    </Key>
+    <Property Name="CustomerContactDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__tblCustom__Custo__36B12243" FromRole="tblCustomerContactData" ToRole="tblCustomers" />
+  </EntityType>
+  <EntityType Name="CustomerOrder">
+    <Key>
+      <PropertyRef Name="CustomerOrderId" />
+    </Key>
+    <Property Name="CustomerOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="OrderDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__tblCustom__BookI__32E0915F" FromRole="tblCustomerOrders" ToRole="tblBooks" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__tblCustom__Custo__33D4B598" FromRole="tblCustomerOrders" ToRole="tblCustomers" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CustomerAdresses" Relationship="Self.FK__tblCustom__Custo__300424B4" FromRole="tblCustomers" ToRole="tblCustomerAdresses" />
+    <NavigationProperty Name="CustomerContactDatas" Relationship="Self.FK__tblCustom__Custo__36B12243" FromRole="tblCustomers" ToRole="tblCustomerContactData" />
+    <NavigationProperty Name="CustomerOrders" Relationship="Self.FK__tblCustom__Custo__33D4B598" FromRole="tblCustomers" ToRole="tblCustomerOrders" />
+  </EntityType>
+  <Association Name="FK__tblBooks__Author__1273C1CD">
+    <End Role="tblAuthors" Type="Models.Author" Multiplicity="1" />
+    <End Role="tblBooks" Type="Models.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAuthors">
+        <PropertyRef Name="AuthorId" />
+      </Principal>
+      <Dependent Role="tblBooks">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblCustom__BookI__32E0915F">
+    <End Role="tblBooks" Type="Models.Book" Multiplicity="1" />
+    <End Role="tblCustomerOrders" Type="Models.CustomerOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBooks">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="tblCustomerOrders">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblCustom__Custo__300424B4">
+    <End Role="tblCustomers" Type="Models.Customer" Multiplicity="1" />
+    <End Role="tblCustomerAdresses" Type="Models.CustomerAdress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCustomers">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="tblCustomerAdresses">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblCustom__Custo__36B12243">
+    <End Role="tblCustomers" Type="Models.Customer" Multiplicity="1" />
+    <End Role="tblCustomerContactData" Type="Models.CustomerContactData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCustomers">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="tblCustomerContactData">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblCustom__Custo__33D4B598">
+    <End Role="tblCustomers" Type="Models.Customer" Multiplicity="1" />
+    <End Role="tblCustomerOrders" Type="Models.CustomerOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCustomers">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="tblCustomerOrders">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BookDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Models.Author" />
+    <EntitySet Name="Books" EntityType="Models.Book" />
+    <EntitySet Name="CustomerAdresses" EntityType="Models.CustomerAdress" />
+    <EntitySet Name="CustomerContactDatas" EntityType="Models.CustomerContactData" />
+    <EntitySet Name="CustomerOrders" EntityType="Models.CustomerOrder" />
+    <EntitySet Name="Customers" EntityType="Models.Customer" />
+    <AssociationSet Name="FK__tblBooks__Author__1273C1CD" Association="Self.FK__tblBooks__Author__1273C1CD">
+      <End Role="tblAuthors" EntitySet="Authors" />
+      <End Role="tblBooks" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblCustom__BookI__32E0915F" Association="Self.FK__tblCustom__BookI__32E0915F">
+      <End Role="tblBooks" EntitySet="Books" />
+      <End Role="tblCustomerOrders" EntitySet="CustomerOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblCustom__Custo__300424B4" Association="Self.FK__tblCustom__Custo__300424B4">
+      <End Role="tblCustomers" EntitySet="Customers" />
+      <End Role="tblCustomerAdresses" EntitySet="CustomerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblCustom__Custo__36B12243" Association="Self.FK__tblCustom__Custo__36B12243">
+      <End Role="tblCustomers" EntitySet="Customers" />
+      <End Role="tblCustomerContactData" EntitySet="CustomerContactDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblCustom__Custo__33D4B598" Association="Self.FK__tblCustom__Custo__33D4B598">
+      <End Role="tblCustomers" EntitySet="Customers" />
+      <End Role="tblCustomerOrders" EntitySet="CustomerOrders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

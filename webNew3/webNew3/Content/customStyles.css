@@ -1,0 +1,71 @@
+body{
+	padding-top: 100px;
+    background-image: url(~/images/background/sky.jpg);
+    background-position: left bottom;
+    background-repeat: repeat;
+	background-color: powderblue;
+}
+.gap50px{
+	height: 50px;
+}
+.gap30px{
+	height: 30px;
+}
+.gap15px{
+	height: 15px;
+}
+.gap450px{
+	height: 450px;
+}
+p{
+	text-indent: 30px;
+}
+a.notCollapsed.collapsed:after{
+	content: "  \\/"
+}
+.nonMargin{
+	margin: 0px;
+}
+.nonMarginPadding{
+	margin: 0px;
+    padding: 0px;
+}
+.nonPaddingRight{
+    padding-right: 0px;
+    margin-right: 0px;
+}
+.addPaddingRight30px {
+    padding-right: 30px;
+}
+.displayBlock{
+    display: block;
+}
+.bookColor{
+    background-color: #e1f5eb;
+}
+.fontSize150{
+    font-size: 150%;
+}
+.fontSize120{
+    font-size: 120%;
+}
+.marginTop10px{
+    margin-top: 10px;
+}
+.marginTop20px{
+    margin-top: 20px;
+}
+.marginBottom5px{
+    margin-bottom: 5px;
+}
+borderRadius20px{
+    border-radius: 20px;
+}
+hr.color {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #0026ff;
+    margin: 1em 0;
+    padding: 0;
+}
