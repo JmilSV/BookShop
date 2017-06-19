@@ -20,12 +20,13 @@ namespace webNew3.Models
         }
     
         public int BookId { get; set; }
-        public string Name { get; set; }
         public int AuthorId { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
         public string BookTitle { get; set; }
+        public string BookCover { get; set; }
+        public bool InStock { get; set; }
     
         public virtual Author Author { get; set; }
         public virtual ICollection<CustomerOrder> CustomerOrders { get; set; }

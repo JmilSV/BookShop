@@ -14,24 +14,29 @@ namespace webNew3.Controllers
     {
         //
         // GET: /Home/
-        public ActionResult Index(int? page, string searchAuthor, string searchBookTitle, string searchBy,
-            string QuickSearch, Category category = Category.forSoul)
+        public ActionResult Index(int? page, string searchAuthor, string searchBookTitle, 
+            string searchBy, string sortBy, Category category = Category.forSoul)
         {
-            List<Book> books;
+            ViewBag.SortLastNameParameter = string.IsNullOrEmpty(sortBy) ? "lastName desc" : "";
+            ViewBag.SortTitleParameter = sortBy == "title" ? "title desc" : "title";
+
             BookDbContext bookDbContext = new BookDbContext();
-            if (string.IsNullOrEmpty(QuickSearch))
-            {
-                if (string.IsNullOrEmpty(searchBy) && string.IsNullOrEmpty(searchAuthor) && string.IsNullOrEmpty(searchBookTitle))
+            var books = bookDbContext.Books.AsQueryable();
+
+                if (string.IsNullOrEmpty(searchBy) && string.IsNullOrEmpty(searchAuthor) && 
+                    string.IsNullOrEmpty(searchBookTitle))
                 {
                     Categories.category = category;
-                    books = bookDbContext.Books.Where(x => x.Category == category.ToString())
-                        .OrderBy(b => b.Author.LastName).ToList();
+                    books = books.Where(x => x.Category.ToLower() == 
+                        category.ToString().ToLower() && x.InStock == true);
                 }
                 else if (searchBy == "all" || string.IsNullOrEmpty(searchBy))
                 {
                     Categories.category = null;
-                    books = bookDbContext.Books.Where(x => (x.Author.LastName.StartsWith(searchAuthor.Trim()) || string.IsNullOrEmpty(searchAuthor)) &&
-                                       (x.Name.StartsWith(searchBookTitle.Trim()) || string.IsNullOrEmpty(searchBookTitle))).ToList();
+                    books = books.Where(x => (x.Author.LastName.StartsWith(searchAuthor.Trim().ToLower()) || 
+                                       string.IsNullOrEmpty(searchAuthor)) &&
+                                       (x.BookTitle.StartsWith(searchBookTitle.Trim().ToLower()) ||
+                                       string.IsNullOrEmpty(searchBookTitle)) && x.InStock == true);
                 }
                 else
                 {
@@ -48,18 +53,23 @@ namespace webNew3.Controllers
                         case "forChildren": Categories.category = Category.forChildren; break;
                     }
 
-                    books = bookDbContext.Books.Where(x => (x.Author.LastName.StartsWith(searchAuthor.Trim()) || string.IsNullOrEmpty(searchAuthor)) &&
-                        (x.Name.StartsWith(searchBookTitle.Trim()) || string.IsNullOrEmpty(searchBookTitle)) &&
-                        (x.Category == searchBy)).ToList();
+                    books = books.Where(x => (x.Author.LastName.StartsWith(searchAuthor.Trim().ToLower()) || 
+                                        string.IsNullOrEmpty(searchAuthor)) && 
+                                        (x.BookTitle.StartsWith(searchBookTitle.Trim().ToLower()) || 
+                                        string.IsNullOrEmpty(searchBookTitle)) &&
+                                        (x.Category.ToLower() == searchBy.ToLower()) && x.InStock == true);
                 }
-            }
-            else
+
+            //сортування
+            switch (sortBy) 
             {
-                Categories.category = null;
-                books = bookDbContext.Books.Where(x => x.Author.LastName.StartsWith(QuickSearch.Trim()) ||
-                    x.BookTitle.StartsWith(QuickSearch.Trim()) || x.Author.FirstName.StartsWith(QuickSearch.Trim())).ToList();
+                case "lastName desc": books = books.OrderByDescending(x => x.Author.LastName); break;
+                case "title": books = books.OrderBy(x => x.BookTitle); break;
+                case "title desc": books = books.OrderByDescending(x => x.BookTitle); break;
+                default: books = books.OrderBy(x => x.Author.LastName); break;
             }
-            return View(books.ToPagedList(page ?? 1, 3));
+
+            return View(books.ToPagedList(page ?? 1, 10));
         }
 	}
 }

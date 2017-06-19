@@ -1,0 +1,47 @@
+﻿@model Author
+
+@{
+    ViewBag.Title = "Добавити до наявних";
+}
+
+<h3 class="WhitesmokeLetters">
+    Ви бажаєте добавити<span> </span>
+    @Model.FirstName<span> </span>
+    @if (!string.IsNullOrEmpty(Model.MiddleName))
+    {
+        @Model.MiddleName<span> </span>
+    }
+    @Model.LastName<span> </span>
+    до наявних?
+</h3>
+
+@Html.Partial("_AuthorDetails", Model)
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-7 col-lg-6">
+        <div class="btn-group">
+            <div class="btn-group">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Добавити до наявних"
+                           class="btn btn-success" />
+                }
+            </div>
+            <div class="btn-group">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("withBooks", "yes")
+
+                    <button type="submit" class="btn btn-success">
+                        Добавити до наявних разом з книгами
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+@Html.ActionLink("Повернутись до списку авторів", "Index", null, new { @class = "btn btn-default"})

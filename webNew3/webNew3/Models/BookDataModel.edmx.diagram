@@ -16,6 +16,7 @@
         <AssociationConnector Association="Models.FK__tblCustom__Custo__300424B4" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tblCustom__Custo__36B12243" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tblCustom__Custo__33D4B598" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Models.User" Width="1.5" PointX="6.25" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

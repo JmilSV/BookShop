@@ -19,7 +19,7 @@ namespace webNew3.Models
         public string CityOrVillage { get; set; }
         public string Street { get; set; }
         public string House { get; set; }
-        public int? Appartment { get; set; }
+        public Nullable<int> Appartment { get; set; }
         public int CustomerId { get; set; }
     
         public virtual Customer Customer { get; set; }

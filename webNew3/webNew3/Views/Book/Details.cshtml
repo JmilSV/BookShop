@@ -1,66 +1,14 @@
-﻿@model webNew3.Models.Book
+﻿@model Book
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Деталі";
 }
 
-<h2>Details</h2>
+@Html.Partial("_BookDetails", Model)
 
-<div>
-    <h4>Book</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.FirstName)
-        </dd>
-
-    </dl>
+<div class="col-xs-12">
+    <div class="btn-group">
+        @Html.ActionLink("Редагувати", "Edit", new { id = Model.BookId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Повернутись до списку", "Index", null, new { @class = "btn btn-default"})
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -19,7 +19,8 @@ namespace webNew3.Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public int CustomerId { get; set; }
-        public DateTime OrderDateTime { get; set; }
+        public System.DateTime OrderDateTime { get; set; }
+        public string OrderStatus { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual Customer Customer { get; set; }

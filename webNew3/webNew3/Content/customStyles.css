@@ -1,9 +1,14 @@
 body{
 	padding-top: 100px;
-    background-image: url(~/images/background/sky.jpg);
-    background-position: left bottom;
-    background-repeat: repeat;
-	background-color: powderblue;
+
+    background: -webkit-gradient(radial, center center, 0, center center, 460, from(#1a82f7), to(#2F2727));
+
+    background: -webkit-radial-gradient(circle, #1a82f7, #2F2727);
+
+    background: -moz-radial-gradient(circle, #1a82f7, #2F2727);
+
+    background: -ms-radial-gradient(circle, #1a82f7, #2F2727);
+    height:600px;
 }
 .gap50px{
 	height: 50px;
@@ -17,7 +22,7 @@ body{
 .gap450px{
 	height: 450px;
 }
-p{
+p.Indent{
 	text-indent: 30px;
 }
 a.notCollapsed.collapsed:after{
@@ -41,7 +46,7 @@ a.notCollapsed.collapsed:after{
     display: block;
 }
 .bookColor{
-    background-color: #e1f5eb;
+    background-color: white;
 }
 .fontSize150{
     font-size: 150%;
@@ -68,4 +73,37 @@ hr.color {
     border-top: 1px solid #0026ff;
     margin: 1em 0;
     padding: 0;
+}
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+.backGroundWhite {
+    background-color: white;
+}
+.WhiteLetters {
+    color: white;
+}
+.WhitesmokeLetters {
+    color: whitesmoke;
+}
+.BlackLetters {
+    color: black;
 }

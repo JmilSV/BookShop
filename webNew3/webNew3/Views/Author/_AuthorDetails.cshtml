@@ -1,0 +1,125 @@
+﻿@model Author
+
+<div class="WhitesmokeLetters">
+    <h2>
+        @Model.FirstName<span> </span>
+        @if (!string.IsNullOrEmpty(Model.MiddleName))
+        {
+            @Model.MiddleName<span> </span>
+        }
+        @Model.LastName
+    </h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @if (string.IsNullOrEmpty(Model.MiddleName))
+            {
+                <span>-</span>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.MiddleName)
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayTextFor(model => model.InStock)
+        </dd>
+
+        <dt>
+            <span>Книги</span>
+        </dt>
+
+        <dd>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" >
+                    <div data-toggle="collapse" data-target="#InStock">
+                        в наявності <span class="caret"></span>
+                    </div>
+                    <div class="collapse" id="InStock">
+                        @{
+                        int InStockFlag = 0;
+                        <ul>
+                            @foreach (Book book in Model.Books)
+                            {
+
+                                if (book.InStock == true)
+                                {
+                                    <li class="fontSize120">
+                                        @book.BookTitle
+                                    </li>
+                                    InStockFlag += 1;
+                                }
+
+                            }
+                        </ul>
+                        if (InStockFlag == 0)
+                        {
+                            <p class="Indent fontSize120">В даній секції немає книг</p>
+                        }
+                        }
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                    <div data-toggle="collapse" data-target="#OutOfStock">
+                        Книги не в наявності<span> </span><span class="caret"></span>
+                    </div>
+                    <div class="collapse" id="OutOfStock">
+                        @{
+                            int OutOfStockflag = 0;
+                            <ul>
+                                @foreach (Book book in Model.Books)
+                                {
+                                    if (book.InStock == false)
+                                    {
+                                        <li class="fontSize120">
+                                            @book.BookTitle
+                                        </li>
+                                        OutOfStockflag += 1;
+                                    }
+                                }
+                            </ul>
+                            if (OutOfStockflag == 0)
+                            {
+                                <p class="Indent fontSize120">В даній секції немає книг</p>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </dd>
+    </dl>
+</div>
+

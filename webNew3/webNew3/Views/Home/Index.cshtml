@@ -9,106 +9,159 @@
     <link href="~/Content/PagedList.css" rel="stylesheet" />
 }
 
-<div class="row">
-    <div class="col-xs-11 col-xs-offset-1">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-        {
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-xs-12 col-md-3">
-                        @Html.DropDownList("searchBy", new List<SelectListItem>
-                        { new SelectListItem{ Text = Categories.forSoul, Value = Category.forSoul.ToString()},
-                            new SelectListItem{ Text = Categories.brainLiterature, Value = Category.brainLiterature.ToString()},
-                            new SelectListItem{ Text = Categories.horrors, Value = Category.horrors.ToString()},
-                            new SelectListItem{ Text = Categories.romance, Value = Category.romance.ToString()},
-                            new SelectListItem{ Text = Categories.detective, Value = Category.detective.ToString()},
-                            new SelectListItem{ Text = Categories.forChildren, Value = Category.forChildren.ToString()},
-                            new SelectListItem{ Text = "Всі категорії", Value = "all"}
-                        }, "Оберіть категорію", new { @class = "form-control" })
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <input type="text" class="form-control"
-                               placeholder="Фамілія автора" name="searchAuthor" />
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <input type="text" class="form-control"
-                               placeholder="Назва книги" name="searchBookTitle" />
-                    </div>
-                    <div class="col-xs-6 col-md-2">
-                        <input type="submit" class="btn btn-primary btn-block" value="Шукати" />
-                    </div>
-                </div>
-                
-            </div>
-        }
-    </div>
-</div>
-<br/>
-
-<div class="row">
-    @for (int i = 0; i < Model.Count; i++)
+<!--Search-->
+<div class="row">  
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
     {
-        <div class="col-xs-9 col-xs-offset-1 borderRadius20px">
-            <div class="col-xs-12 bookColor">
-                <div class="col-xs-10 col-md-11 text-left">
-                    <div class="gap15px"></div>
-                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
-                        @if (string.IsNullOrEmpty(Model[i].BookTitle))
-                    {
-                    <div class="thumbnail">
-                        @Html.Image("~/images/bookTitles/default/defaultBook.jpg",
-                                                        "Тут мало бути фото книги")
-                    </div>
-                    }
-                    else
-                    {
-                    <div class="thumbnail">
-                        @Html.Image(Model[i].BookTitle, "Тут мало бути фото книги")
-                    </div>
-                    }
-                    </div>
-                    <div class="fontSize150 col-xs-12 col-sm-4 col-md-5 col-lg-7">
-                        @Model[i].Name, - @Model[i].Author.FirstName
-                        @Model[i].Author.LastName
-                    </div>
-                    <div class="fontSize150 col-xs-12 col-sm-4 col-md-4 col-lg-3 bookColor">
-                        @string.Format("{0:C}", Model[i].Price)
-                    </div>
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="form-group">
+                <div class="col-xs-12 col-md-3">
+                    @Html.DropDownList("searchBy", new List<SelectListItem>
+                            { new SelectListItem{ Text = Categories.forSoul, Value = Category.forSoul.ToString()},
+                                new SelectListItem{ Text = Categories.brainLiterature, Value = Category.brainLiterature.ToString()},
+                                new SelectListItem{ Text = Categories.horrors, Value = Category.horrors.ToString()},
+                                new SelectListItem{ Text = Categories.romance, Value = Category.romance.ToString()},
+                                new SelectListItem{ Text = Categories.detective, Value = Category.detective.ToString()},
+                                new SelectListItem{ Text = Categories.forChildren, Value = Category.forChildren.ToString()},
+                                new SelectListItem{ Text = "Всі категорії", Value = "all"}
+                            }, "Оберіть категорію", new { @class = "form-control" })
                 </div>
-                <div class="col-xs-2 col-md-1">
-                    @using (Html.BeginForm("AddBook", "Cart", FormMethod.Post))
-                    {
-                    <div>
-                        @Html.Hidden("bookId", Model[i].BookId)
-                        <div class="col-xs-12 gap15px"></div>
-                        @if (!MyCart.GetCart().IsSelected(Model[i].BookId))
-                            {
-                            <input type="submit" class="btn btn-lg btn-primary" value="Добавити у кошик" />
-                            }
-                            else
-                            {
-                            <input type="button" class="btn btn-lg btn-warning" value="Ця книга у кошику" />
-                            }
-                    </div>
-                    }
+                <div class="col-xs-12 col-md-3">
+                    <input type="text" class="form-control"
+                           placeholder="Фамілія автора" name="searchAuthor" />
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <input type="text" class="form-control"
+                           placeholder="Назва книги" name="searchBookTitle" />
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <input type="submit" class="btn btn-primary btn-block" value="Шукати" />
                 </div>
             </div>
-
-            <a href="#book@(i)" data-toggle="collapse"
-               class="btn btn-info col-xs-10 col-md-11">
-                <div class="col-xs-6 col-md-5 col-lg-7 text-left">
-                    Опис книги <span class="caret"></span>
-                </div>
-            </a>
-            <div id="book@(i)" class="collapse col-xs-10 col-md-11">
-                <div class="well">
-                    @Model[i].Description
-                </div>
-            </div>
-            <div class="col-xs-12 gap30px"></div>
         </div>
     }
 </div>
+<br/>
+
+<!--if here are no books-->
+@if (Model.Count == 0)
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-offset-1">
+            <div class="WhitesmokeLetters">
+                <h3>Книг у даній категорії наразі немає</h3>
+                <h3>Оберіть іншу категорію</h3>
+                <h3>Завітайте сюди пізніше, каталог оновлюється щодня!</h3>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    
+<!--Sorting-->
+    <div class="row">
+        <div class="col-xs-9 col-xs-offset-1">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                    {
+                        <div class="btn-group col-xs-12">
+                        
+                            @Html.Hidden("category", Request.QueryString["category"])
+                            @Html.Hidden("searchBy", Request.QueryString["searchBy"])
+                            @Html.Hidden("searchAuthor", Request.QueryString["searchAuthor"])
+                            @Html.Hidden("searchBookTitle", Request.QueryString["searchBookTitle"])
+                        
+                            <button type="submit" name="sortBy" class="btn btn-primary" 
+                                    value="@(ViewBag.SortTitleParameter)">
+                                Сортувати за назвою <i class="glyphicon glyphicon-sort"></i>
+                            </button>
+                            <button type="submit" name="sortBy" class="btn btn-primary" 
+                                    value="@(ViewBag.SortLastNameParameter)">
+                                Сортувати за автором <i class="glyphicon glyphicon-sort"></i>
+                            </button>
+                        </div>
+                    }
+        </div>
+
+    </div>
+    <br/>
+
+
+<!--Catalog-->
+    <div class="row">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="col-xs-10 col-xs-offset-1 well">
+                    <!--image-->
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+                        @if (string.IsNullOrEmpty(Model[i].BookCover))
+                        {
+                            <div class="thumbnail">
+                                @Html.Image("~/images/bookCovers/default/defaultBook.jpg",
+                                                         "Тут мало бути фото книги")
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="thumbnail">
+                                @Html.Image(Model[i].BookCover, "Тут мало бути фото книги")
+                            </div>
+                        }
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 text-primary">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+                                <h3>@Model[i].Author.FirstName <span> </span>@Model[i].Author.LastName</h3>
+                                <h4>"@Model[i].BookTitle"</h4>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+                                <div class="row">
+                                    <div class="col-xs-12 text-primary fontSize150">
+                                        @string.Format("{0:C}", Model[i].Price)
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        @using (Html.BeginForm("AddBook", "Cart", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("bookId", Model[i].BookId);
+                                                                           if (!MyCart.GetCart().IsSelected(Model[i].BookId))
+                                                                           {
+                                                                            <input type="submit" class="btn btn-primary"
+                                                                                   value="Добавити у кошик" />
+                                                                           }
+                                                                           else
+                                                                           {
+                                                                            <button type="button" class="btn btn-info">
+                                                                                <i class="glyphicon glyphicon-shopping-cart"></i>
+                                                                                <span> книга у кошику</span>
+                                                                            </button>
+                                                                           }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a href="#book@(i)" data-toggle="collapse" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-book"></i>
+                                    Опис книги <span class="caret"></span>
+                                </a>
+                                <div id="book@(i)" class="collapse col-xs-12">
+                                    <div class="well">
+                                        @Model[i].Description
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        }
+     </div>
+}
 
 <div class="row">
     <div class="col-xs-12 text-center">
@@ -120,7 +173,7 @@
            searchBy = Request.QueryString["searchBy"],
            searchAuthor = Request.QueryString["searchAuthor"],
            searchBookTitle = Request.QueryString["searchBookTitle"],
-           QuickSearch = Request.QueryString["QuickSearch"]
+           sortBy = Request.QueryString["sortBy"]
        }), 
        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded,
                                        MaximumPageNumbersToDisplay = 3,
@@ -132,5 +185,3 @@
        })
     </div>
 </div>
-
-

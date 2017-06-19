@@ -169,11 +169,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Connection\ConnectToDb.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomHtmlHelpers\CustomHtmlHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -181,6 +183,7 @@
     <Compile Include="Models\Author.cs">
       <DependentUpon>BookDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthorMetaData.cs" />
     <Compile Include="Models\Book.cs">
       <DependentUpon>BookDataModel.tt</DependentUpon>
     </Compile>
@@ -215,8 +218,13 @@
     <Compile Include="Models\CustomerOrder.cs">
       <DependentUpon>BookDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderMetadata.cs" />
+    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
+    <Compile Include="Models\User.cs">
+      <DependentUpon>BookDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserMetaData.cs" />
+    <Compile Include="MyRolesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -239,25 +247,25 @@
     <Content Include="images\background\blue2.jpg" />
     <Content Include="images\background\sky.jpg" />
     <Content Include="images\background\skyWaves.jpg" />
-    <Content Include="images\bookTitles\default\defaultBook.jpg" />
-    <Content Include="images\bookTitles\kniaz\default.jpg" />
-    <Content Include="images\bookTitles\kniaz\aBKicjh6adY.jpg" />
-    <Content Include="images\bookTitles\kniaz\abWSSZTTvaE.jpg" />
-    <Content Include="images\bookTitles\kniaz\ci1996yDIVA.jpg" />
-    <Content Include="images\bookTitles\king\king112263.jpg" />
-    <Content Include="images\bookTitles\king\kingBlackHouse.jpg" />
-    <Content Include="images\bookTitles\king\kingDoctorSon.jpg" />
-    <Content Include="images\bookTitles\king\kingEndZmini.jpg" />
-    <Content Include="images\bookTitles\king\kingKristina.jpg" />
-    <Content Include="images\bookTitles\king\kingLovecSniv.jpg" />
-    <Content Include="images\bookTitles\king\KingProtistoania_1.jpg" />
-    <Content Include="images\bookTitles\king\KingProtistoania_2.jpg" />
-    <Content Include="images\bookTitles\king\kingSiavo.jpg" />
-    <Content Include="images\bookTitles\king\kingTalisman.jpg" />
-    <Content Include="images\bookTitles\king\kingVidrodenny.jpg" />
-    <Content Include="images\bookTitles\kniaz\pCp4q7HhK3c.jpg" />
-    <Content Include="images\bookTitles\kniaz\Qp85RFk6ekM.jpg" />
-    <Content Include="images\bookTitles\kniaz\Z9l6-YfIFdw.jpg" />
+    <Content Include="images\bookCovers\default\defaultBook.jpg" />
+    <Content Include="images\bookCovers\kniaz\default.jpg" />
+    <Content Include="images\bookCovers\kniaz\aBKicjh6adY.jpg" />
+    <Content Include="images\bookCovers\kniaz\abWSSZTTvaE.jpg" />
+    <Content Include="images\bookCovers\kniaz\ci1996yDIVA.jpg" />
+    <Content Include="images\bookCovers\king\king112263.jpg" />
+    <Content Include="images\bookCovers\king\kingBlackHouse.jpg" />
+    <Content Include="images\bookCovers\king\kingDoctorSon.jpg" />
+    <Content Include="images\bookCovers\king\kingEndZmini.jpg" />
+    <Content Include="images\bookCovers\king\kingKristina.jpg" />
+    <Content Include="images\bookCovers\king\kingLovecSniv.jpg" />
+    <Content Include="images\bookCovers\king\KingProtistoania_1.jpg" />
+    <Content Include="images\bookCovers\king\KingProtistoania_2.jpg" />
+    <Content Include="images\bookCovers\king\kingSiavo.jpg" />
+    <Content Include="images\bookCovers\king\kingTalisman.jpg" />
+    <Content Include="images\bookCovers\king\kingVidrodenny.jpg" />
+    <Content Include="images\bookCovers\kniaz\pCp4q7HhK3c.jpg" />
+    <Content Include="images\bookCovers\kniaz\Qp85RFk6ekM.jpg" />
+    <Content Include="images\bookCovers\kniaz\Z9l6-YfIFdw.jpg" />
     <Content Include="Models\BookDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BookDataModel.edmx</DependentUpon>
@@ -289,6 +297,22 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Success.cshtml" />
+    <Content Include="Views\User\LogIn.cshtml" />
+    <Content Include="Views\Author\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutWithOutBookCategories.cshtml" />
+    <Content Include="Views\Book\_ViewStart.cshtml" />
+    <Content Include="Views\User\_ViewStart.cshtml" />
+    <Content Include="Views\Author\AddToStock.cshtml" />
+    <Content Include="Views\Author\_AuthorDetails.cshtml" />
+    <Content Include="Views\Book\AddToStock.cshtml" />
+    <Content Include="Views\Book\_BookDetails.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,12 +342,12 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Author\Create.cshtml" />
-    <Content Include="Views\Author\Delete.cshtml" />
+    <Content Include="Views\Author\RemoveFromStock.cshtml" />
     <Content Include="Views\Author\Details.cshtml" />
     <Content Include="Views\Author\Edit.cshtml" />
     <Content Include="Views\Author\Index.cshtml" />
     <Content Include="Views\Book\Create.cshtml" />
-    <Content Include="Views\Book\Delete.cshtml" />
+    <Content Include="Views\Book\RemoveFromStock.cshtml" />
     <Content Include="Views\Book\Details.cshtml" />
     <Content Include="Views\Book\Edit.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />

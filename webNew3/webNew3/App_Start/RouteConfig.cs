@@ -21,13 +21,18 @@ namespace webNew3
             );
             routes.MapRoute(
                 name: "Default2",
-                url: "{Basket}/{action}/{id}",
-                defaults: new { controller = "Basket", action = "Index", id = UrlParameter.Optional }
+                url: "{Cart}/{action}/{id}",
+                defaults: new { action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "Default3",
                 url: "{Order}/{action}/{id}",
-                defaults: new { controller = "Order", action = "Index", id = UrlParameter.Optional }
+                defaults: new { action = "Create", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Default4",
+                url: "{User}/{action}/{id}",
+                defaults: new { controller = "User", action = "Create", id = UrlParameter.Optional }
             );
         }
     }

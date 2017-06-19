@@ -1,0 +1,22 @@
+﻿@model webNew3.Models.Author
+
+@{
+    ViewBag.Title = "Видалення з наявних";
+}
+
+<h3 class="WhitesmokeLetters">
+    Ви впевнені, що хочите видалити<span> </span>
+    @Model.FirstName<span> </span>@Model.LastName<span> </span>
+    та всі його книги зі списку наявних?
+</h3>
+
+@Html.Partial("_AuthorDetails", Model)
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+            <div class="btn-group">
+                <input type="submit" value="Видалити з наявних" class="btn btn-danger" />
+                @Html.ActionLink("Повернутись до списку авторів", "Index", null, new { @class = "btn btn-default"})
+            </div>
+    }

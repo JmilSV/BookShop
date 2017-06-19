@@ -1,0 +1,22 @@
+﻿@model Book
+
+@{
+    ViewBag.Title = "Добавити до наявних";
+}
+
+<h3 class="WhitesmokeLetters">
+    Ви бажаєте добавити<span> </span>@Model.BookTitle<span> </span>
+    до наявних?
+</h3>
+
+@Html.Partial("_BookDetails", Model)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+        <div class="btn-group">
+            <input type="submit" value="Добавити до наявних" class="btn btn-success" /> |
+            @Html.ActionLink("Повернутиль до списку книг", "Index", null, new { @class = "btn btn-default"})
+        </div> 
+}

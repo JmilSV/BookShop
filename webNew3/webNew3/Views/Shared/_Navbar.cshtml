@@ -1,0 +1,100 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <div class="navbar-brand">
+                <a href="~/home/index">
+                    <span class="fontSize120">BookShop</span>
+                    <span class="fontSize120 text-warning">SV</span>
+                </a>
+            </div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Головна", "Index", "Home")</li>
+                <li>@Html.ActionLink("Розробник", "", "Home")</li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("A"))
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "Book")">
+                                <span class="glyphicon glyphicon-book"></span> Книги
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Author")">
+                                <span class="glyphicon glyphicon-user"></span> Автори
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "User")">
+                                <span class="glyphicon glyphicon-user"></span> Користувачі
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a href="@Url.Action("Details", "User", new { email = User.Identity.Name })">
+                            <span class="glyphicon glyphicon-user"></span> Мій профіль
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="~/user/LogOut">
+                            <span class="glyphicon glyphicon-log-out"></span> Вихід
+                        </a>
+                    </li>
+
+                }
+                else
+                {
+                    <li>
+                        <a href="~/user/create">
+                            <span class="glyphicon glyphicon-user"></span> Реєстрація
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/user/LogIn">
+                            <span class="glyphicon glyphicon-log-in"></span> Вхід
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <!--different carts for empty and full cart-->
+                @if (MyCart.GetCart().BookCarts.Count > 0)
+                {
+                    <li>
+                        <a href="~/cart/index">
+                            <i class="fa fa-shopping-cart fa-lg text-primary"></i>
+                            <span>Кошик</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="~/cart/index">
+                            <i class="glyphicon glyphicon-shopping-cart glyphicon"></i>
+                            <span>Кошик</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

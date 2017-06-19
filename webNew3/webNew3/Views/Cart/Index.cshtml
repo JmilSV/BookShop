@@ -1,16 +1,14 @@
 ﻿@model MyCart
 
 @{
-    ViewBag.Title = "Корзина";
+    ViewBag.Title = "Кошик";
     Categories.category = null;
 }
-
-
 
 <div class="col-xs-12">
         <div class="col-xs-12">
             <div class="col-xs-8">
-                <h2>Корзина</h2>
+                <h2 class="WhitesmokeLetters">Кошик</h2>
             </div>
             @if (Model.bookCartCount > 0)
             {
@@ -18,8 +16,10 @@
                     <div class="col-xs-12">
                         @using (Html.BeginForm("Clear", "Cart", FormMethod.Post))
                         {
-                            <input type="submit" class="btn btn-danger marginTop20px" 
-                                   value="Очистити корзину" />
+                            <button type="submit" class="btn btn-danger marginTop20px">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                <span> Очистити кошик</span>
+                            </button> 
                         }
                     </div>
                 </div>
@@ -34,19 +34,18 @@
     { 
             for(int i = 0; i < Model.bookCartCount; i++)
             {
-                <div class="col-xs-12 bookColor">
-                    <div class="col-xs-8 bookColor fontSize120 text-primary">
-                        <div class="col-xs-12 marginTop20px"></div>
-                        <div class="col-xs-1">
+                <div class="col-xs-12 well">
+                    <div class="col-xs-12 col-sm-7 fontSize120 text-primary">
+                        <div class="col-xs-1 text-center">
                             <h3>@(i + 1)</h3>
                         </div>
                         <div class="col-xs-3 thumbnail">
-                            @Html.Image(string.IsNullOrEmpty(Model[i].book.BookTitle) ?
-                        "~/images/bookTitles/default/defaultBook.jpg" :
-                        Model[i].book.BookTitle, "Книга")
+                            @Html.Image(string.IsNullOrEmpty(Model[i].book.BookCover) ?
+                        "~/images/bookCovers/default/defaultBook.jpg" :
+                        Model[i].book.BookCover, "Книга")
                         </div>
                         <div class="col-xs-5">
-                            @Model[i].book.Name (@Model[i].book.Author.FirstName
+                            @Model[i].book.BookTitle (@Model[i].book.Author.FirstName
                             @Model[i].book.Author.LastName)
                         </div>
                         <div class="col-xs-3">
@@ -54,20 +53,34 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-4">
-                        <div class="row marginBottom5px">
-                                <div class="col-xs-12 gap30px"></div>
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="row">
+                            <div class="col-xs-12 col-xs-offset-9">
+                                @using (Html.BeginForm("RemoveBook", "Cart", FormMethod.Post))
+                                {
+                                    @Html.Hidden("bookId", Model[i].book.BookId)
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                        <br/>
+                            <div class="row">
                                 <div class="col-xs-3">
-                                    @using (Html.BeginForm("DecrementAmount", "Cart", FormMethod.Post))
+                                    @if (Model[i].amount > 1)
                                     {
-                                        @Html.Hidden("bookId", Model[i].book.BookId);
-                                        <button type="submit" class="btn btn-link">
+                                        using (Html.BeginForm("DecrementAmount", "Cart", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("bookId", Model[i].book.BookId);
+                                        <button type="submit" class="btn btn-primary">
                                             <i class="glyphicon glyphicon-chevron-left"></i>
                                         </button>
+                                        }
                                     }
                                 </div>
                                 <div class="col-xs-6">
-                                    <h4 class="text-primary">
+                                    <h4 class="text-primary text-center">
                                         @Html.DisplayFor(b => b[i].amount)<span> </span>
                                         @BookEnd.GetRightEnd(Model[i].amount).ToLower()
                                     </h4>
@@ -76,28 +89,13 @@
                                     @using (Html.BeginForm("IncrementAmount", "Cart", FormMethod.Post))
                                     {
                                         @Html.Hidden("bookId", Model[i].book.BookId);
-                                        <button type="submit" class="btn btn-link">
+                                        <button type="submit" class="btn btn-primary">
                                             <i class="glyphicon glyphicon-chevron-right"></i>
                                         </button>
                                     }
                                 </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 center-block">
-                                @using (Html.BeginForm("RemoveBook", "Cart", FormMethod.Post))
-                                {
-                                    @Html.Hidden("bookId", Model[i].book.BookId)
-                                    <button type="submit" class="btn btn-link">
-                                        <i></i>
-                                    </button>
-                                }
                             </div>
-                        </div>
                     </div>
-                    
-                </div>
-                <div class="row col-xs-12">
-                    <br/>
                 </div>
             }
         <div class="col-xs-12">
@@ -112,11 +110,11 @@
         <div class="col-xs-12">
             <div class="col-xs-6">
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-{
-    string category = MyCart.GetCart().BookCarts.Last().book.Category;
+                {
+                    string category = MyCart.GetCart().BookCarts.Last().book.Category;
 
-    switch (category)
-    {
+                    switch (category)
+                    {
                         case "brainLiterature":
                             <button type="submit" class="btn btn-lg btn-info btn-block center-block"
                                     name="category" value="brainLiterature">
@@ -159,11 +157,13 @@
     }
     else
     {
-        <div class="col-xs-12 gap30px">
-            <h3 class="text-center">Ваша корзина пустує. Добавте в неї пару книг!</h3>
-            <a href="~/home/index" class="btn btn-lg btn-block center-block">
-                Повернутись до каталогу товарів
-            </a>
+        <div class="col-xs-12 gap30px WhiteLetters">
+            <h3 class="text-center">Ваш кошик пустує. Добавте в нього пару книг!</h3>
+            <div class="col-xs-11 col-xs-offset-1 col-md-6 col-md-offset-3">
+                <a href="~/home/index" class="btn btn-lg btn-block center-block btn-primary">
+                    Повернутись до каталогу товарів
+                </a>
+            </div>
         </div>
     }
 </div>

@@ -9,20 +9,22 @@
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Books" Relationship="Self.FK__tblBooks__Author__1273C1CD" FromRole="tblAuthors" ToRole="tblBooks" />
+    <Property Name="InStock" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Book">
     <Key>
       <PropertyRef Name="BookId" />
     </Key>
     <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="AuthorId" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="BookTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="BookTitle" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Author" Relationship="Self.FK__tblBooks__Author__1273C1CD" FromRole="tblBooks" ToRole="tblAuthors" />
     <NavigationProperty Name="CustomerOrders" Relationship="Self.FK__tblCustom__BookI__32E0915F" FromRole="tblBooks" ToRole="tblCustomerOrders" />
+    <Property Name="BookCover" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="InStock" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="CustomerAdress">
     <Key>
@@ -59,6 +61,7 @@
     <Property Name="OrderDateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Book" Relationship="Self.FK__tblCustom__BookI__32E0915F" FromRole="tblCustomerOrders" ToRole="tblBooks" />
     <NavigationProperty Name="Customer" Relationship="Self.FK__tblCustom__Custo__33D4B598" FromRole="tblCustomerOrders" ToRole="tblCustomers" />
+    <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -158,5 +161,18 @@
       <End Role="tblCustomers" EntitySet="Customers" />
       <End Role="tblCustomerOrders" EntitySet="CustomerOrders" />
     </AssociationSet>
+    <EntitySet Name="Users" EntityType="Models.User" />
   </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

@@ -1,0 +1,23 @@
+﻿@model Book
+
+@{
+    ViewBag.Title = "Видалення з наявних";
+}
+
+<h3 class="WhitesmokeLetters">
+    Ви впевнені, що хочите видалити<span> </span>
+    @Model.BookTitle<span> </span>
+    зі списку наявних?
+</h3>
+
+@Html.Partial("_BookDetails", Model)
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="btn-group">
+            <input type="submit" value="Видалити з наявних" class="btn btn-danger" /> |
+            @Html.ActionLink("Повернутиль до списку книг", "Index", null, new { @class = "btn btn-default"})
+        </div>
+    }
+

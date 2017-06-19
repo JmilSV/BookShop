@@ -1,42 +1,15 @@
-﻿@model webNew3.Models.Author
+﻿@model Author
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@Html.Partial("_AuthorDetails", Model)
 
-<div>
-    <h4>Author</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-
-    </dl>
+<div class="col-xs-12" >
+    <div class="btn-group">
+    @Html.ActionLink("Редагувати", "Edit", new { id = Model.AuthorId }, new { @class = "btn btn-success"})
+    @Html.ActionLink("Повернутись до списку", "Index", null, new { @class = "btn btn-default"})
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,0 +1,136 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Видалити профіль";
+}
+
+<h2 class="WhitesmokeLetters">Видалити профіль</h2>
+
+@if (User.IsInRole("A"))
+{
+<div>
+    <hr />
+    <dl class="dl-horizontal WhitesmokeLetters">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDateTime)
+        </dd>
+
+    </dl>
+
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.UserId)
+
+                <div class="btn-group">
+                    @Html.HiddenFor(m => m.UserId)
+                    <input type="submit" value="Видалити" class="btn btn-danger" />
+                    @Html.ActionLink("Повернутись до списку користувачів", "Index", null,
+                    new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+}
+
+@if (User.IsInRole("U"))
+{
+    <div>
+    <hr />
+        <dl class="dl-horizontal WhitesmokeLetters">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+        </dl>
+        <div class="row">
+            <div class="col-xs-12">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.UserId)
+
+                    <div class="btn-group">
+                        <input type="submit" value="Видалити" class="btn btn-danger" />
+                        @Html.ActionLink("Повернутись до профілю", "Details",
+                        new { email = Model.Email }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+        </div>
+</div>
+}

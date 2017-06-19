@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using webNew3.Models;
+using webNew3.Connection;
 
 namespace webNew3.Controllers
 {
     public class OrderController : Controller
     {
+        BookDbContext bookDbContext = new BookDbContext();
         //
         // GET: /Customer/
         public ActionResult Index()
@@ -40,6 +42,14 @@ namespace webNew3.Controllers
                 }
             }
             orderViewModel.cost = cart.Cost;
+            if (User.Identity.IsAuthenticated)
+            {
+                User user = bookDbContext.Users.FirstOrDefault(x => x.Email.ToLower() == 
+                    User.Identity.Name.ToLower());
+                orderViewModel.FirstName = user.FirstName;
+                orderViewModel.LastName = user.LastName;
+                orderViewModel.Email = user.Email;
+            }
 
             return View(orderViewModel);
         }
@@ -47,46 +57,40 @@ namespace webNew3.Controllers
         [HttpPost]
         public ActionResult Create(OrderViewModel orderViewModel)
         {
-            BookDbContext bookDbContext = new BookDbContext();
 
             if (ModelState.IsValid)
             {
-                bookDbContext.Customers.Add(new Customer
+                int customerId = ConnectToDb.GetLastGeneratedValue(orderViewModel.FirstName, orderViewModel.LastName);
+                if (customerId != 0)
                 {
-                    FirstName = orderViewModel.FirstName,
-                    LastName = orderViewModel.LastName
-                });
-                bookDbContext.SaveChanges();
-
-                int customerId = bookDbContext.Customers.FirstOrDefault(x => x.LastName == 
-                    orderViewModel.LastName && x.FirstName == orderViewModel.FirstName).CustomerId;
-
-                bookDbContext.CustomerAdresses.Add(new CustomerAdress
-                {
-                    Country = orderViewModel.Country,
-                    CityOrVillage = orderViewModel.CityOrVillage,
-                    Street = orderViewModel.Street,
-                    House = orderViewModel.House,
-                    Appartment = orderViewModel.Appartment,
-                    CustomerId = customerId
-                });
-
-                MyCart cart = MyCart.GetCart();
-
-                for (int i = 0; i < cart.bookCartCount; i++)
-                {
-                    bookDbContext.CustomerOrders.Add(new CustomerOrder
+                    bookDbContext.CustomerAdresses.Add(new CustomerAdress
                     {
-                        CustomerId = customerId,
-                        BookId = cart[i].book.BookId,
-                        Price = cart[i].book.Price,
-                        Quantity = cart[i].amount,
-                        OrderDateTime = DateTime.Now
+                        Country = orderViewModel.Country,
+                        CityOrVillage = orderViewModel.CityOrVillage,
+                        Street = orderViewModel.Street,
+                        House = orderViewModel.House,
+                        Appartment = orderViewModel.Appartment,
+                        CustomerId = customerId
                     });
-                }
-                bookDbContext.SaveChanges();
 
-                return View("Success", cart);
+                    MyCart cart = MyCart.GetCart();
+
+                    for (int i = 0; i < cart.bookCartCount; i++)
+                    {
+                        bookDbContext.CustomerOrders.Add(new CustomerOrder
+                        {
+                            CustomerId = customerId,
+                            BookId = cart[i].book.BookId,
+                            Price = cart[i].book.Price,
+                            Quantity = cart[i].amount,
+                            OrderDateTime = DateTime.Now,
+                            OrderStatus = OrderStatus.Open.ToString()
+                        });
+                    }
+                    bookDbContext.SaveChanges();
+
+                    return View("Success", cart);
+                }
             }
             return View("Fall");
         }

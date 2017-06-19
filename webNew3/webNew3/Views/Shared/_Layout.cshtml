@@ -5,146 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Книгошоп</title>
     @Styles.Render("~/Content/bootstrap.min.css")
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/customStyles.css" rel="stylesheet" />
-
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-brand">@Html.ActionLink("Книгошоп", "Index", "Home")</div>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Головна", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Розробник", "", "Home")</li>
-                    <li>@Html.ActionLink("Корзина", "Index", "Cart")</li>
-                </ul>
-                @using(Html.BeginForm("Index", "Home", FormMethod.Get))
-                { 
-                    <div class="navbar-form navbar-right">
-                        <input type="search" placeholder="Швидкий пошук" 
-                               class="form-control" name="QuickSearch"/>
-                        <button type="submit" class="btn">Шукати</button>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_Navbar")
 
-    <div class="container-fluid row">
+    <div class="container-fluid">
         <div class="row">
-            <div class="row col-xs-12">
-                <div class="col-xs-12 col-sm-3">
-                    <h3 class="text-center">Оберіть категорію</h3>
-                    <div class="row">
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <h3 class="text-center text-primary">Оберіть категорію</h3>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         if (Categories.category == Category.forSoul)
                         {
-                            <input type="button" class="btn btn-primary btn-lg btn-block active"
-                                   value="@(Categories.forSoul)" />
+                    <input type="button" class="btn btn-primary btn-lg btn-block active"
+                           value="@(Categories.forSoul)" />
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary btn-lg btn-block"
-                                    name="category" value="@(Category.forSoul)">
-                                @Categories.forSoul
-                            </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            name="category" value="@(Category.forSoul)">
+                        @Categories.forSoul
+                    </button>
                         }
                     }
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         if (Categories.category == Category.brainLiterature)
                         {
-                            <input type="button" class="btn btn-primary btn-lg btn-block active"
-                                   value="@(Categories.brainLiterature)" />
+                    <input type="button" class="btn btn-primary btn-lg btn-block active"
+                           value="@(Categories.brainLiterature)" />
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary btn-lg btn-block"
-                                    name="category" value="@(Category.brainLiterature)">
-                                @Categories.brainLiterature
-                            </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            name="category" value="@(Category.brainLiterature)">
+                        @Categories.brainLiterature
+                    </button>
                         }
                     }
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         if (Categories.category == Category.horrors)
                         {
-                            <input type="button" class="btn btn-primary btn-lg btn-block active"
-                                   value="@(Categories.horrors)" />
+                    <input type="button" class="btn btn-primary btn-lg btn-block active"
+                           value="@(Categories.horrors)" />
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary btn-lg btn-block"
-                                    name="category" value="@(Category.horrors)">
-                                @Categories.horrors
-                            </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            name="category" value="@(Category.horrors)">
+                        @Categories.horrors
+                    </button>
                         }
                     }
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         if (Categories.category == Category.romance)
                         {
-                            <input type="button" class="btn btn-primary btn-lg btn-block active"
-                                   value="@(Categories.romance)" />
+                    <input type="button" class="btn btn-primary btn-lg btn-block active"
+                           value="@(Categories.romance)" />
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary btn-lg btn-block"
-                                    name="category" value="@(Category.romance)">
-                                @Categories.romance
-                            </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            name="category" value="@(Category.romance)">
+                        @Categories.romance
+                    </button>
                         }
                     }
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         if (Categories.category == Category.detective)
                         {
-                            <input type="button" class="btn btn-primary btn-lg btn-block active"
-                                   value="@(Categories.detective)" />
+                    <input type="button" class="btn btn-primary btn-lg btn-block active"
+                           value="@(Categories.detective)" />
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary btn-lg btn-block"
-                                    name="category" value="@(Category.detective)">
-                                @Categories.detective
-                            </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            name="category" value="@(Category.detective)">
+                        @Categories.detective
+                    </button>
                         }
                     }
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                     {
                         if (Categories.category == Category.forChildren)
                         {
-                            <input type="button" class="btn btn-primary btn-lg btn-block active"
-                                   value="@(Categories.forChildren)" />
+                    <input type="button" class="btn btn-primary btn-lg btn-block active"
+                           value="@(Categories.forChildren)" />
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-primary btn-lg btn-block"
-                                    name="category" value="@Category.forChildren">
-                                @Categories.forChildren
-                            </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            name="category" value="@Category.forChildren">
+                        @Categories.forChildren
+                    </button>
                         }
                     }
-                    <div class="gap30px"></div>
+                        <div class="gap30px"></div>
+                    </div>
+
+                    <!--RenderBody-->
+                    <div class="col-sm-9">
+                        @RenderBody()
                     </div>
                 </div>
-                <div class="row col-sm-9">
-                    @RenderBody()
-                </div>
-            </div>
         </div>
     </div>
     <hr />
     <footer>
-       <p>&copy; @DateTime.Now.Year - Книгошоп</p>
+       <p class="text-primary Indent WhitesmokeLetters">&copy; @DateTime.Now.Year - BookShopSV</p>
     </footer>
 
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>

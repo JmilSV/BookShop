@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Authors">
       <EntityTypeMapping TypeName="Models.Author">
         <MappingFragment StoreEntitySet="tblAuthors">
+          <ScalarProperty Name="InStock" ColumnName="InStock" />
           <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -14,8 +15,9 @@
     <EntitySetMapping Name="Books">
       <EntityTypeMapping TypeName="Models.Book">
         <MappingFragment StoreEntitySet="tblBooks">
+          <ScalarProperty Name="InStock" ColumnName="InStock" />
+          <ScalarProperty Name="BookCover" ColumnName="BookCover" />
           <ScalarProperty Name="BookId" ColumnName="BookId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Category" ColumnName="Category" />
@@ -50,6 +52,7 @@
     <EntitySetMapping Name="CustomerOrders">
       <EntityTypeMapping TypeName="Models.CustomerOrder">
         <MappingFragment StoreEntitySet="tblCustomerOrders">
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
           <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -65,6 +68,19 @@
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Models.User">
+        <MappingFragment StoreEntitySet="tblUsers">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

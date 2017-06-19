@@ -13,7 +13,8 @@ namespace webNew3.Models
         static string n = "од.";
 
         /// <summary>
-        /// Вертає називний відмінок, залежно від кількості книг (до 20)
+        /// Вертає називний відмінок, залежно від кількості книг (до 20),
+        /// або "од.", якщо книг >20
         /// </summary>
         /// <param name="count">кількість книг</param>
         /// <returns></returns>
@@ -21,7 +22,7 @@ namespace webNew3.Models
         {
             if (count > 0)
             {
-                if (count == 1 || count == 21 || count == 31 || count == 41)
+                if (count == 1)
                 {
                     return one;
                 }

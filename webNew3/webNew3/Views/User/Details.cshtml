@@ -1,0 +1,125 @@
+﻿@model User
+
+@if (User.IsInRole("A"))
+{
+
+    ViewBag.Title = Model.Email;
+
+
+    <h2 class="WhitesmokeLetters">Профіль користувача @Model.Email</h2>
+
+    <div class="WhitesmokeLetters">
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDateTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDateTime)
+            </dd>
+        </dl>
+    </div>
+    <div class="btn-group">
+        @Html.ActionLink("Редагувати", "Edit", new { id = Model.UserId }, new { @class = "btn btn-success"})
+        @Html.ActionLink("Повернутись до списку користувачів", "Index", null, new { @class = "btn btn-default" })
+    </div>
+
+}
+@if (User.IsInRole("U"))
+{
+
+    ViewBag.Title = Model.Email;
+
+
+    <h2 class="WhitesmokeLetters">Ваш профіль</h2>
+
+    <div class="WhitesmokeLetters">
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="btn-group">
+        @Html.ActionLink("Редагувати", "Edit", new { id = Model.UserId }, new { @class = "btn btn-success"})
+        @Html.ActionLink("Видалити", "Delete", new { id = Model.UserId }, new { @class = "btn btn-danger"})
+    </div>
+
+}

@@ -31,5 +31,6 @@ namespace webNew3.Models
         public virtual DbSet<CustomerContactData> CustomerContactDatas { get; set; }
         public virtual DbSet<CustomerOrder> CustomerOrders { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

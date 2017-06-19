@@ -10,6 +10,7 @@ using webNew3.Models;
 
 namespace webNew3.Controllers
 {
+    [Authorize(Roles = "A")]
     public class AuthorController : Controller
     {
         private BookDbContext db = new BookDbContext();
@@ -27,7 +28,7 @@ namespace webNew3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = db.Authors.Include(x => x.Books).FirstOrDefault(x => x.AuthorId == id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -46,10 +47,11 @@ namespace webNew3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="AuthorId,FirstName,LastName,MiddleName")] Author author)
+        public ActionResult Create([Bind(Include="FirstName,LastName,MiddleName")] Author author)
         {
             if (ModelState.IsValid)
             {
+                author.InStock = true;
                 db.Authors.Add(author);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,7 +67,7 @@ namespace webNew3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = db.Authors.Include(x => x.Books).FirstOrDefault(x => x.AuthorId == id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -78,7 +80,7 @@ namespace webNew3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="AuthorId,FirstName,LastName,MiddleName")] Author author)
+        public ActionResult Edit([Bind(Include="AuthorId,FirstName,LastName,MiddleName,InStock")] Author author)
         {
             if (ModelState.IsValid)
             {
@@ -90,13 +92,13 @@ namespace webNew3.Controllers
         }
 
         // GET: /Author/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult RemoveFromStock(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Author author = db.Authors.Find(id);
+            Author author = db.Authors.Include(x => x.Books).FirstOrDefault(x => x.AuthorId == id);
             if (author == null)
             {
                 return HttpNotFound();
@@ -105,12 +107,50 @@ namespace webNew3.Controllers
         }
 
         // POST: /Author/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("RemoveFromStock")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Remove(int id)
         {
             Author author = db.Authors.Find(id);
-            db.Authors.Remove(author);
+            foreach (var book in author.Books)
+            {
+                book.InStock = false;
+                db.Entry(book).State = EntityState.Modified;
+            }
+            author.InStock = false;
+
+            db.Entry(author).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddToStock(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Include(x => x.Books).FirstOrDefault(x => x.AuthorId == id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            return View(author);
+        }
+
+        [HttpPost]
+        public ActionResult AddToStock(int id, string withBooks)
+        {
+            Author author = db.Authors.Find(id);
+            author.InStock = true;
+            if (!string.IsNullOrEmpty(withBooks))
+            {
+                foreach (Book book in author.Books)
+                {
+                    book.InStock = true;
+                }
+            }
+            db.Entry(author).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,6 +10,7 @@ using webNew3.Models;
 
 namespace webNew3.Controllers
 {
+    [Authorize(Roles="A")]
     public class BookController : Controller
     {
         private BookDbContext db = new BookDbContext();
@@ -39,7 +40,7 @@ namespace webNew3.Controllers
         // GET: /Book/Create
         public ActionResult Create()
         {
-            ViewBag.Author = new SelectList(db.Authors, "AuthorId", "FirstName");
+            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "LastName");
             return View();
         }
 
@@ -47,17 +48,17 @@ namespace webNew3.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="BookId,Name,Author,Description,Category,Price,BookTitle")] Book book)
+        public ActionResult Create([Bind(Include= "BookTitle,AuthorId,Description,Category,Price,BookCover")] Book book)
         {
             if (ModelState.IsValid)
             {
+                book.InStock = true;
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Author = new SelectList(db.Authors, "AuthorId", "FirstName", book.Author);
+            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "LastName", book.Author);
             return View(book);
         }
 
@@ -68,12 +69,12 @@ namespace webNew3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            Book book = db.Books.Include(x => x.Author).FirstOrDefault(x => x.BookId == id);
             if (book == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Author = new SelectList(db.Authors, "AuthorId", "FirstName", book.Author);
+            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "LastName", book.Author.AuthorId);
             return View(book);
         }
 
@@ -81,21 +82,20 @@ namespace webNew3.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="BookId,Name,Author,Description,Category,Price,BookTitle")] Book book)
+        public ActionResult Edit([Bind(Include = "BookId,BookTitle,AuthorId,Description,Category,Price,BookCover,InStock")] Book book)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = book.BookId});
             }
-            ViewBag.Author = new SelectList(db.Authors, "AuthorId", "FirstName", book.Author);
+            ViewBag.AuthorId = new SelectList(db.Authors, "AuthorId", "LastName", book.Author);
             return View(book);
         }
 
         // GET: /Book/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult RemoveFromStock(int? id)
         {
             if (id == null)
             {
@@ -110,12 +110,47 @@ namespace webNew3.Controllers
         }
 
         // POST: /Book/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost, ActionName("RemoveFromStock")]
+        public ActionResult Remove(int id)
         {
+            Book book = db.Books.Include(x => x.Author).FirstOrDefault(x => x.BookId == id);
+            book.InStock = false;
+            book.Author.InStock = false;
+            foreach(Book b in book.Author.Books)
+            {
+                if (b.InStock == true)
+                {
+                    book.Author.InStock = true;
+                }
+            }
+            db.Entry(book).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult AddToStock(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Book book = db.Books.Find(id);
-            db.Books.Remove(book);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(book);
+        }
+
+        [HttpPost, ActionName("AddToStock")]
+        public ActionResult Add(int id)
+        {
+            Book book = db.Books.Include(x => x.Author).FirstOrDefault(x => x.BookId == id);
+            book.InStock = true;
+            if (book.Author.InStock == false)
+            {
+                book.Author.InStock = true;
+            }
+            db.Entry(book).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
