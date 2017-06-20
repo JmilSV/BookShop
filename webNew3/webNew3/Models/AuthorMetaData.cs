@@ -18,15 +18,18 @@ namespace webNew3.Models
         public int AuthorId { get; set; }
 
         [Display(Name="Ім'я автора")]
+        [Required()]
         public string FirstName { get; set; }
 
         [Display(Name = "Фамілія автора")]
+        [Required()]
         public string LastName { get; set; }
 
         [Display(Name = "По батькові автора")]
         public string MiddleName { get; set; }
 
         [Display(Name = "Наявність")]
+        [Required()]
         public bool InStock { get; set; }
     }
     public struct AdministraterEmail

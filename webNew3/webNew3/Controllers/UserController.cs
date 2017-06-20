@@ -29,7 +29,7 @@ namespace webNew3.Controllers
                 x.Password.ToLower() == user.Password.ToLower());
             if (theuser != null)
             {
-                FormsAuthentication.SetAuthCookie(user.Email, true);
+                FormsAuthentication.SetAuthCookie(user.Email, false);
                 if (string.IsNullOrEmpty(ReturnUrl))
                 {
                     return RedirectToAction("Success");

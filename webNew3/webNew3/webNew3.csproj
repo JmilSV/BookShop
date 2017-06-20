@@ -248,10 +248,9 @@
     <Content Include="images\background\sky.jpg" />
     <Content Include="images\background\skyWaves.jpg" />
     <Content Include="images\bookCovers\default\defaultBook.jpg" />
-    <Content Include="images\bookCovers\kniaz\default.jpg" />
-    <Content Include="images\bookCovers\kniaz\aBKicjh6adY.jpg" />
-    <Content Include="images\bookCovers\kniaz\abWSSZTTvaE.jpg" />
-    <Content Include="images\bookCovers\kniaz\ci1996yDIVA.jpg" />
+    <Content Include="images\bookCovers\JF\REWORK.jpg" />
+    <Content Include="images\bookCovers\JS\SCRUM.jpg" />
+    <Content Include="images\bookCovers\JV\Secret.jpg" />
     <Content Include="images\bookCovers\king\king112263.jpg" />
     <Content Include="images\bookCovers\king\kingBlackHouse.jpg" />
     <Content Include="images\bookCovers\king\kingDoctorSon.jpg" />
@@ -263,9 +262,7 @@
     <Content Include="images\bookCovers\king\kingSiavo.jpg" />
     <Content Include="images\bookCovers\king\kingTalisman.jpg" />
     <Content Include="images\bookCovers\king\kingVidrodenny.jpg" />
-    <Content Include="images\bookCovers\kniaz\pCp4q7HhK3c.jpg" />
-    <Content Include="images\bookCovers\kniaz\Qp85RFk6ekM.jpg" />
-    <Content Include="images\bookCovers\kniaz\Z9l6-YfIFdw.jpg" />
+    <Content Include="images\bookCovers\kniaz\SKz.jpg" />
     <Content Include="Models\BookDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BookDataModel.edmx</DependentUpon>

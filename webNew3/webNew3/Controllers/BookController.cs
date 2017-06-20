@@ -52,6 +52,8 @@ namespace webNew3.Controllers
         {
             if (ModelState.IsValid)
             {
+                book.BookCover = book.BookCover.ToLower() == ImageDefaultPath.imageDefaultPath.ToLower() ? 
+                    string.Empty : book.BookCover;
                 book.InStock = true;
                 db.Books.Add(book);
                 db.SaveChanges();

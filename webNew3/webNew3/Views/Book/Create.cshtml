@@ -65,7 +65,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BookCover, new { @class = "WhitesmokeLetters control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BookCover)
+                @Html.TextBoxFor(model => model.BookCover, new { Value = ImageDefaultPath.imageDefaultPath })
                 @Html.ValidationMessageFor(model => model.BookCover)
             </div>
         </div>
