@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CvController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -263,6 +264,19 @@
     <Content Include="images\bookCovers\king\kingTalisman.jpg" />
     <Content Include="images\bookCovers\king\kingVidrodenny.jpg" />
     <Content Include="images\bookCovers\kniaz\SKz.jpg" />
+    <Content Include="images\BookShopScreenshots\1.jpg" />
+    <Content Include="images\BookShopScreenshots\2.jpg" />
+    <Content Include="images\BookShopScreenshots\3.jpg" />
+    <Content Include="images\BookShopScreenshots\4.jpg" />
+    <Content Include="images\BookShopScreenshots\5.jpg" />
+    <Content Include="images\BookShopScreenshots\6.jpg" />
+    <Content Include="images\CreditManagerScreenshots\1.jpg" />
+    <Content Include="images\CreditManagerScreenshots\2.jpg" />
+    <Content Include="images\CreditManagerScreenshots\3.jpg" />
+    <Content Include="images\CreditManagerScreenshots\4.jpg" />
+    <Content Include="images\CreditManagerScreenshots\5.jpg" />
+    <Content Include="images\CreditManagerScreenshots\6.jpg" />
+    <Content Include="images\Me.jpg" />
     <Content Include="Models\BookDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BookDataModel.edmx</DependentUpon>
@@ -310,6 +324,7 @@
     <Content Include="Views\Book\AddToStock.cshtml" />
     <Content Include="Views\Book\_BookDetails.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
+    <Content Include="Views\Cv\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

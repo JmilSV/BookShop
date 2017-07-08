@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutWithOutBookCategories.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <div class="text-justify resumeTextSize">
+                <div class="WhitesmokeLetters">
+                    <div class="text-center">
+                        <p class="nonMarginPadding">
+                            <h2>CV</h2>
+                        </p>
+                        <p>
+                            <h2>Vovnianko Sviatoslav</h2>
+                        </p>
+                    </div>
+                    <br />
+                    <br />
+                    <p class="nonMarginPadding">
+                        Date and place of birth: 11/08/1993, Lviv.
+                    </p>
+                    <p>
+                        Phone: (067) 314 49 83.
+                        <a href="https://www.facebook.com/profile.php?id=100008318383397" target="_blank"><span class="WhitesmokeLetters"><u>Facebook</u></span></a>
+                    <p />
+                    <p class="nonMarginPadding">
+                        <b>Education:</b>
+                    <p />
+                    <ul>
+                        <li>
+                            2014-2016: master degree, Ivan Franko National University of Lviv,
+                            specialty "Management and administration", full-time;
+                        </li>
+                        <li>
+                            2010-2014: bachelor’s degree National Forestry University,
+                            specialty "Management of foreign trade activities", full-time,
+                            diploma with honors;
+                        </li>
+                        <li>
+                            2000-2010: secondary school №83 of Lviv, diploma with honors.
+                        </li>
+                    </ul>
+
+
+                    <p>
+                        Since February 2016 I have been studying programming.
+                    </p>
+                    <p>
+                        Languages:   native - Ukrainian, English – intermediate (B1).
+                    </p>
+                    <p>
+                        <b>Skills:</b> C#, ADO.Net, Entity Framework, LINQ, T-SQL to SQL Server,
+                        ASP.Net MVC, ASP.Net Web API, HTML, CSS, Bootstrap, Git.
+                    </p>
+                    <p>
+                        I have no commercial experience but I’ve written several program using
+                        .Net technologies. I have studied about 30 courses of these technologies.
+                        Among them CS50, Kudvenkat courses (on YouTube), MVA courses,
+                        KPI courses (university program), courses of Oleksandr Hudok etc.
+                        I have read “C# 4.0: The Complete Reference”  by Herbert Schildt,
+                        “Design Patterns – easier than simple” by Andriy Buday (he is from Lviv,
+                        free book, nice), several lectures of C#, .Net Framework,
+                        OOP and a lot of articles.
+                    </p>
+
+                    <h3 class="text-center">My applications: </h3>
+                </div>
+                <div class="panel panel-success">
+                    <div data-toggle="collapse" data-target="#CreditManager" class="panel-heading">
+                        CreditManager (Smart UI) <div class="caret"></div>
+                    </div>
+                    <div id="CreditManager" class="collapse panel-body">
+                        You can create borrower, add credit, repay credit and all this in one application
+                        without any identification or authorization, nice. My first one.  There is transaction even.
+                        There aren’t used stored procedures but parametrized queries for connection to DB because
+                        I didn’t know about stored procedures. You can write report about debtor to a file. <br />
+                        Used technologies: WF, ADO.Net, MS SQL Server.<br />
+                        Language: C#.<br />
+                        <a href="https://github.com/JmilSV/CreditManager" target="_blank">Click here to see code on GitHub</a><br />
+                        <br />
+                        Screenshots:
+                        <div class="thumbnail">
+                            <img src="images/CreditManagerScreenshots/1.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                Add debtor
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/CreditManagerScreenshots/2.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                Add credit
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/CreditManagerScreenshots/3.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                Report
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/CreditManagerScreenshots/4.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                Make payment
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/CreditManagerScreenshots/5.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                Each payment decreases credit balance
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/CreditManagerScreenshots/6.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                You can write report to a file
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel panel-info">
+                    <div data-toggle="collapse" data-target="#BootstrapOnly" class="panel-heading">
+                        BootstrapOnly <div class="caret"></div>
+                    </div>
+                    <div id="BootstrapOnly" class="collapse panel-body">
+                        Static site, nothing interesting but it looks nice. I’ve tested Bootstrap features.<br />
+                        <a href="https://github.com/JmilSV/JmilSV.github.io" target="_blank">
+                            Click here to see code on GitHub
+                        </a>
+                        <br />
+                        <a href="http://jmilsv.tk/" target="_blank">You can try it</a>
+                    </div>
+                </div>
+                <div class="panel panel-success">
+                    <div data-toggle="collapse" data-target="#BookShop" class="panel-heading">
+                        BookShop (ASP.Net MVC, round-trip app., this site)<div class="caret"></div>
+                    </div>
+                    <div id="BookShop" class="collapse panel-body">
+                        Dynamic site: server + connection to database + login + administration. Client can buy book(s).
+                        Books are taken from DB. Client may use search and sorting, adds books to the cart
+                        (in which is used Singleton) and forms the order. His data (name, phone, address…)
+                        will be sent to a DB and manager can connect with him lately. There is paging too.
+                        Administrator can manage book catalog. <br />
+                        Used technologies: ASP.Net MVC, Entity Framework, ADO.Net, MS SQL Server, LINQ,
+                        Bootstrap (where Bootstrap is, there is jQuery, right?)).<br />
+                        Language: C#. <br />
+                        There is not nice architecture, no DI, no testing. I'm learning this now (since 26/06/2017).
+                        I've already known Ninject and Moq. I'm using test first technique.<br />
+                        <a href="https://github.com/JmilSV/BookShop" target="_blank">Click here to see code on GitHub</a><br />
+                        <br />
+                        Screenshots:
+                        <div class="thumbnail">
+                            <img src="images/BookShopScreenshots/1.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                Catalog with search and sorting
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/BookShopScreenshots/2.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                There is paging. You can see description. Books that you add to cart are marked as "in cart"
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/BookShopScreenshots/3.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                In cart you can change number of selected books and see the sum.
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/BookShopScreenshots/4.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                You can registration
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/BookShopScreenshots/5.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                The data you provided when registering will be put into order form.
+                                You have to add your phone number and address to form the order.
+                                There is client-side validation too.
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="images/BookShopScreenshots/6.jpg" alt="Screenshot" />
+                            <div class="caption">
+                                If you've entered as the admin, you can change book, author catalogs and
+                                manage users.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="WhitesmokeLetters">
+                    Thank you! Take me on a position of .Net Developer.)
+                <p>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4">
+            <div class="gap50px"></div>
+            <div class="thumbnail">
+                <img src="images/Me.jpg" alt="My photo" />
+            </div>
+        </div>
+    </div>
+</div>
+
